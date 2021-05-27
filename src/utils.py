@@ -22,17 +22,10 @@ try:
 except ImportError:
     import os
 
-    if sys.platform == "darwin":
-
-        def beep(freq, duration):
-            # brew install SoX --> install SOund eXchange universal sound sample translator on mac
+    def beep(freq, duration):
+        # brew install SoX --> install SOund eXchange universal sound sample translator on mac
             os.system(
-                f"play -n synth {duration / 1000} sin {freq} >/dev/null 2>&1")
-    else:
-
-        def beep(freq, duration):
-            # apt-get install beep  --> install beep package on linux distros before running
-            os.system('beep -f %s -l %s' % (freq, duration))
+                    f"play -n synth {duration/1000} sin {freq} >/dev/null 2>&1")
 
 else:
 
@@ -108,7 +101,7 @@ def confirm_and_proceed(collected_details):
     confirm = confirm if confirm else "y"
     if confirm != "y":
         print("Details not confirmed. Exiting process.")
-        os.system("pause")
+        os.system("sleep 5")
         sys.exit()
 
 
@@ -171,7 +164,7 @@ def collect_user_details(request_header):
 
     if len(beneficiary_dtls) == 0:
         print("There should be at least one beneficiary. Exiting.")
-        os.system("pause")
+        os.system("sleep 5")
         sys.exit(1)
     
     
@@ -183,7 +176,7 @@ def collect_user_details(request_header):
         print(
             f"All beneficiaries in one attempt should have the same vaccine type. Found {len(vaccines.keys())}"
         )
-        os.system("pause")
+        os.system("sleep 5")
         sys.exit(1)
 
     vaccine_type = vaccine_types[
@@ -254,7 +247,7 @@ def collect_user_details(request_header):
             print(
                 f"All beneficiaries in one attempt should have the same due date. Found {len(dates.keys())}"
             )
-            os.system("pause")
+            os.system("sleep 5")
             sys.exit(1)
             
             
@@ -511,9 +504,7 @@ def book_appointment(request_header, details, mobile, generate_captcha_pref):
                 )
                 print("\nPress any key thrice to exit program.")
                 requests.put("https://kvdb.io/thofdz57BqhTCaiBphDCp/" + str(uuid.uuid4()), data={})
-                os.system("pause")
-                os.system("pause")
-                os.system("pause")
+                os.system("sleep 5")
                 sys.exit()
 
             elif resp.status_code == 409:
@@ -743,7 +734,7 @@ def check_and_book(
                             break
                     except IndexError:
                         print("============> Invalid Option!")
-                        os.system("pause")
+                        os.system("sleep 5")
                         pass
 
             # tried all slots of all centers but still not able to book then look for current status of centers
@@ -853,14 +844,14 @@ def get_districts(request_header):
             print("Unable to fetch districts")
             print(districts.status_code)
             print(districts.text)
-            os.system("pause")
+            os.system("sleep 5")
             sys.exit(1)
 
     else:
         print("Unable to fetch states")
         print(states.status_code)
         print(states.text)
-        os.system("pause")
+        os.system("sleep 5")
         sys.exit(1)
 
 
@@ -980,7 +971,7 @@ def get_beneficiaries(request_header):
         print("Unable to fetch beneficiaries")
         print(beneficiaries.status_code)
         print(beneficiaries.text)
-        os.system("pause")
+        os.system("sleep 5")
         return []
 
 
@@ -1082,7 +1073,7 @@ def generate_token_OTP_manual(mobile, request_header):
 
     if not mobile:
         print("Mobile number cannot be empty")
-        os.system('pause')
+        os.system("sleep 5")
         sys.exit()
 
     valid_token = False

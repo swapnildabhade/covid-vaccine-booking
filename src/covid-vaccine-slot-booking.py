@@ -171,8 +171,7 @@ def main():
     except Exception as e:
         print(str(e))
         print('Exiting Script')
-        os.system("pause")
-
+        exit(-1)
 
 if __name__ == '__main__':
     main()
