@@ -58,6 +58,8 @@ def main():
 
         request_header = copy.deepcopy(base_request_header)
         request_header["Authorization"] = f"Bearer {token}"
+        request_header["Cache-Control"] = "no-cache"
+        request_header["Pragma"] = "no-cache"
 
         if os.path.exists(filename):
             print("\n=================================== Note ===================================\n")
@@ -122,6 +124,8 @@ def main():
             # create new request_header
             request_header = copy.deepcopy(base_request_header)
             request_header["Authorization"] = f"Bearer {token}"
+            request_header["Cache-Control"] = "no-cache"
+            request_header["Pragma"] = "no-cache"
 
             # call function to check and book slots
             try:
